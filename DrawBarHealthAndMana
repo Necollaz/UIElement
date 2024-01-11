@@ -1,0 +1,66 @@
+internal class Program
+{
+    private static void Main(string[] args)
+    {
+        int health = 0;
+        int mana = 0;
+
+        bool isWorkoing = true;
+
+        while (isWorkoing)
+        {
+            Console.SetCursorPosition(0, 0);
+            DrawBar(health, ConsoleColor.Green);
+            Console.SetCursorPosition(0, 1);
+            DrawBar(mana, ConsoleColor.Blue);
+
+            Console.SetCursorPosition(0, 3);
+            Console.Write("Введите количество жизней: ");
+            health = Convert.ToInt32(Console.ReadLine());
+            Console.Write("Введите количество маны: ");
+            mana = Convert.ToInt32(Console.ReadLine());
+            Console.ReadKey();
+            Console.Clear();
+        }
+    }
+
+    private static void DrawBar(int value, ConsoleColor color)
+    {
+        ConsoleColor defaultColor = Console.BackgroundColor;
+        char startSymbol = '[';
+        char lastSymbol = ']';
+        char fillSymbol = ' ';
+        char emptySymbol = ' ';
+
+        int percent = 100;
+        int minValue = 0;
+        int maxValue = 100;
+        int scale;
+
+        if (value >= minValue && value <= maxValue)
+        {
+            scale = Convert.ToInt32(Convert.ToDouble(value) / percent * maxValue);
+            Console.Write($"{startSymbol}");
+            Console.BackgroundColor = color;
+            Console.Write($"{FillBar(scale, fillSymbol)}");
+            Console.BackgroundColor = defaultColor;
+            Console.Write($"{FillBar(maxValue - scale, emptySymbol)}{lastSymbol}"); 
+        }
+        else
+        {
+            Console.WriteLine("Вы ввели не верный показатель здоровья.");
+        }
+    }
+
+    private static string FillBar(int value, char symbol)
+    {
+        string bar = " ";
+
+        for (int i = 0; i < value; i++)
+        {
+            bar += symbol;
+        }
+
+        return bar;
+    } 
+}
