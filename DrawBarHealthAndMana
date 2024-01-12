@@ -27,24 +27,24 @@ internal class Program
     private static void DrawBar(int value, ConsoleColor color)
     {
         ConsoleColor defaultColor = Console.BackgroundColor;
-        char startSymbol = '[';
+        char firstSymbol = '[';
         char lastSymbol = ']';
         char fillSymbol = ' ';
         char emptySymbol = ' ';
 
-        int percent = 100;
-        int minValue = 0;
-        int maxValue = 100;
-        int scale;
+        int maxPercent = 100;
+        int minLengthValue = 0;
+        int maxLengthValue = 100;
+        int filledLength;
 
-        if (value >= minValue && value <= maxValue)
+        if (value >= minLengthValue && value <= maxLengthValue)
         {
-            scale = Convert.ToInt32(Convert.ToDouble(value) / percent * maxValue);
-            Console.Write($"{startSymbol}");
+            filledLength = Convert.ToInt32(Convert.ToDouble(value) / maxPercent * maxLengthValue);
+            Console.Write($"{firstSymbol}");
             Console.BackgroundColor = color;
-            Console.Write($"{FillBar(scale, fillSymbol)}");
+            Console.Write($"{FillBar(filledLength, fillSymbol)}");
             Console.BackgroundColor = defaultColor;
-            Console.Write($"{FillBar(maxValue - scale, emptySymbol)}{lastSymbol}"); 
+            Console.Write($"{FillBar(maxLengthValue - filledLength, emptySymbol)}{lastSymbol}");
         }
         else
         {
@@ -62,5 +62,5 @@ internal class Program
         }
 
         return bar;
-    } 
+    }
 }
